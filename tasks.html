@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+     
+
+      var kalyan = new XMLHttpRequest();
+      kalyan.open("GET", "https://restcountries.com/v2/all");
+
+      kalyan.send();
+
+      kalyan.onload = function () {
+        var data = JSON.parse(kalyan.response);
+        console.log(data[0]);
+
+        //A .Get all the countries from Asia continent /region using Filter function
+
+
+        var Asia_continent =data.filter((x,y)=>x.region=="Asia")
+        console.log(Asia_continent)
+
+      //B . Get all the countries with a population of less than 2 lakhs using Filter function
+        var population=data.filter((x,y)=>x.population<200000)
+        console.log(population)
+
+
+     //C.Print the following details name, capital, flag, using forEach function
+
+     data.forEach(country => {
+      // Extract required details
+      const name = country.name;
+      const capital = country.capital;
+      const flag = country.flag; // Flags is an array, taking the first one for simplicity
+
+      // Print details
+      console.log(name);
+      console.log(capital);
+      console.log(flag);
+      console.log('---------------------------');
+    });
+
+
+
+    //Print the total population of countries using reduce function
+var total_population=data.reduce((ac,p)=>(ac)+(p.population),0)
+console.log(total_population)
+
+
+//Print the country that uses US dollars as currency.
+const usDollarCountries = data.filter(country => country.currencies.some(currency => currency.code === 'USD'));
+        console.log(usDollarCountries)
+ }
+    </script>
+  </body>
+</html>
+
+      
